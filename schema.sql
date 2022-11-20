@@ -9,7 +9,7 @@ USE chess_db;
 
 -- Player entiry
 
-CREATE TABLE player_table (
+CREATE TABLE IF NOT EXISTS player_table (
     id              INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     name            VARCHAR(20) NOT NULL DEFAULT 'Player',
     picture         BLOB
@@ -17,7 +17,7 @@ CREATE TABLE player_table (
 
 -- Friend List entity
 
-CREATE TABLE friend_list_table (
+CREATE TABLE IF NOT EXISTS friend_list_table (
     id              INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     player_1_id     INT UNSIGNED,
     player_2_id     INT UNSIGNED,
@@ -38,7 +38,7 @@ CREATE TABLE friend_list_table (
  *      Draw        5
  */
 
-CREATE TABLE game_table (
+CREATE TABLE IF NOT EXISTS game_table (
     id              INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     w_player_id     INT UNSIGNED,
     b_player_id     INT UNSIGNED,
@@ -71,7 +71,7 @@ CREATE TABLE game_table (
   *     h1 = 56, h2 = 57, ...,  h8 = 64
   */
 
-CREATE TABLE move_table (
+CREATE TABLE IF NOT EXISTS move_table (
     id              BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     game_id         INT UNSIGNED,
     player_id       INT UNSIGNED,
@@ -84,7 +84,6 @@ CREATE TABLE move_table (
     FOREIGN KEY (game_id) REFERENCES game_table (id),
     FOREIGN KEY (player_id) REFERENCES player_table (id),
 
-    CONSTRAINT position_range CHECK(from_position < 64),
-    CONSTRAINT position_range CHECK(to_position < 64),
+    CONSTRAINT position_range CHECK(from_position < 64 AND to_position < 64),
     CONSTRAINT piece CHECK(to_position <= 5)
 );

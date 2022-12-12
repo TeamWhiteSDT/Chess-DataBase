@@ -5,7 +5,7 @@
  * Schema of online chess data base
  */
 
-USE chess_db
+USE chess_db;
 
 -- Player entiry
 
@@ -60,22 +60,11 @@ CREATE TABLE IF NOT EXISTS `game_table` (
 
 -- Chess piece move entity
 
- /*
-  * Position notation:
-  *     Linear notation
-  *     a1 = 0,  a2 = 1,  ...,  a8 = 7,
-  *     b1 = 8,  b2 = 9,  ...,  b8 = 5,
-  *     ...
-  *     h1 = 56, h2 = 57, ...,  h8 = 64
-  */
-
 CREATE TABLE IF NOT EXISTS `move_table` (
     `id`                BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     `game_id`           INT UNSIGNED,
     `player_id`         INT UNSIGNED,
-    `from_position`     SMALLINT UNSIGNED NOT NULL,
-    `to_position`       SMALLINT UNSIGNED NOT NULL,
-    `num`               SMALLINT UNSIGNED NOT NULL, /* Number of move in the game */
+    `fen`               VARCHAR(128),
     `time_from_start`   INT UNSIGNED DEFAULT 0, /* Time from game started in seconds */
 
     FOREIGN KEY (`game_id`)
@@ -83,8 +72,5 @@ CREATE TABLE IF NOT EXISTS `move_table` (
         ON DELETE CASCADE,
     FOREIGN KEY (`player_id`)
         REFERENCES `player_table` (`id`)
-        ON DELETE CASCADE,
-
-    CONSTRAINT `position_range` CHECK(`from_position` < 64 AND `to_position` < 64),
-    CONSTRAINT `piece` CHECK(`to_position` <= 5)
+        ON DELETE CASCADE
 );

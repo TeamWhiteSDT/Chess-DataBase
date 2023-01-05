@@ -12,6 +12,7 @@ USE chess_db;
 CREATE TABLE IF NOT EXISTS player_table (
     `id`            INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     `name`          VARCHAR(20) NOT NULL DEFAULT 'Player',
+    `rating`        INT NOT NULL DEFAULT 0,
     `picture`       BLOB
 );
 
@@ -19,13 +20,13 @@ CREATE TABLE IF NOT EXISTS player_table (
 
 CREATE TABLE IF NOT EXISTS friend_list_table (
     `id`            INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-    `player_1_id`   INT UNSIGNED,
-    `player_2_id`   INT UNSIGNED,
+    `player_id`     INT UNSIGNED,
+    `friend_id`     INT UNSIGNED,
 
-    FOREIGN KEY (`player_1_id`)
+    FOREIGN KEY (`player_id`)
         REFERENCES `player_table` (`id`)
         ON DELETE CASCADE,
-    FOREIGN KEY (`player_2_id`)
+    FOREIGN KEY (`friend_id`)
         REFERENCES `player_table` (`id`)
         ON DELETE CASCADE
 );

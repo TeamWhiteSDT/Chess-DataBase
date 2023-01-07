@@ -11,7 +11,8 @@ USE chess_db;
 
 CREATE TABLE IF NOT EXISTS player_table (
     `id`            INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-    `name`          VARCHAR(20) NOT NULL DEFAULT 'Player',
+    `name`          VARCHAR(20) DEFAULT 'Player',
+    `password`      BINARY(32), /* SHA-256 */
     `rating`        INT NOT NULL DEFAULT 0,
     `picture`       BLOB
 );

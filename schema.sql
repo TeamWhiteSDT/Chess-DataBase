@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS player_table (
     `id`            INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     `name`          VARCHAR(20) DEFAULT 'Player',
     `password`      BINARY(32), /* SHA-256 */
+    `is_guest`      BOOLEAN NOT NULL,
     `rating`        INT NOT NULL DEFAULT 0,
     `picture`       BLOB
 );

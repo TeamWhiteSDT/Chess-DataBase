@@ -67,7 +67,8 @@ CREATE TABLE IF NOT EXISTS `move_table` (
     `id`                BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     `game_id`           INT UNSIGNED,
     `player_id`         INT UNSIGNED,
-    `fen`               VARCHAR(128),
+    `fen`               VARCHAR(128) NOT NULL,
+    `spelling`          VARCHAR(64) DEFAULT '',
     `time_from_start`   INT UNSIGNED DEFAULT 0, /* Time from game started in seconds */
 
     FOREIGN KEY (`game_id`)
